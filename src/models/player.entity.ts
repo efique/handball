@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Stat } from './stat.entity';
+import { PlayerToTeam } from './playertoteam.entity';
 
 export enum RolePlayerEnum {
   PLAYER = 'player',
@@ -11,11 +13,21 @@ export class Player {
   id: number;
 
   @Column()
-  firstName: string;
+  firstname: string;
 
   @Column()
-  lastName: string;
+  lastname: string;
 
-  @Column({ type: 'enum', enum: RolePlayerEnum, default: '' })
+  @Column({
+    type: 'enum',
+    enum: RolePlayerEnum,
+    default: RolePlayerEnum.PLAYER,
+  })
   role: RolePlayerEnum;
+
+  @OneToMany(() => Stat, (stat) => stat.player)
+  stats: Stat[];
+
+  @OneToMany(() => PlayerToTeam, (playerToTeam) => playerToTeam.player)
+  public playerToTeams: PlayerToTeam[];
 }

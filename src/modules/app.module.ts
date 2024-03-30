@@ -13,6 +13,9 @@ import { User } from 'src/models/user.entity';
 import { Season } from 'src/models/season.entity';
 import { Stat } from 'src/models/stat.entity';
 import { Team } from 'src/models/team.entity';
+import { Match } from 'src/models/match.entity';
+import { MatchsModule } from './matchs.module';
+import { PlayerToTeam } from 'src/models/playertoteam.entity';
 
 @Module({
   imports: [
@@ -21,15 +24,17 @@ import { Team } from 'src/models/team.entity';
     SeasonsModule,
     StatsModule,
     TeamsModule,
+    MatchsModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
-      database: 'test',
-      entities: [Player, User, Season, Stat, Team],
-      synchronize: true,
+      password: '',
+      database: 'handball',
+      entities: [Player, User, Season, Stat, Team, Match, PlayerToTeam],
+      // autoLoadEntities: true,
+      synchronize: false,
     }),
   ],
   controllers: [AppController],
