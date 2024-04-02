@@ -17,26 +17,26 @@ export class SeasonsController {
 
   @Post()
   create(@Body() createSeasonDto: CreateSeasonDto) {
-    return this.seasonsService.create(createSeasonDto);
+    return this.seasonsService.createSeason(createSeasonDto);
   }
 
   @Get()
   findAll() {
-    return this.seasonsService.findAll();
+    return this.seasonsService.findAllSeasons();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.seasonsService.findOne(+id);
+    return this.seasonsService.findOneSeason(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSeasonDto: UpdateSeasonDto) {
-    return this.seasonsService.update(+id, updateSeasonDto);
+    return this.seasonsService.updateSeason(+id, updateSeasonDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.seasonsService.remove(+id);
+    return this.seasonsService.removeSeason(+id);
   }
 }

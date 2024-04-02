@@ -17,26 +17,26 @@ export class StatsController {
 
   @Post()
   create(@Body() createStatDto: CreateStatDto) {
-    return this.statsService.create(createStatDto);
+    return this.statsService.createStat(createStatDto);
   }
 
   @Get()
   findAll() {
-    return this.statsService.findAll();
+    return this.statsService.findAllStats();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.statsService.findOne(+id);
+    return this.statsService.findOneStat(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStatDto: UpdateStatDto) {
-    return this.statsService.update(+id, updateStatDto);
+    return this.statsService.updateStat(+id, updateStatDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.statsService.remove(+id);
+    return this.statsService.removeStat(+id);
   }
 }
