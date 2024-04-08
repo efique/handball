@@ -2,7 +2,8 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateMatchDto } from './create-match.dto';
 
 export class UpdateMatchDto extends PartialType(CreateMatchDto) {
-  versus : string
-  date : Date
-  score : string
+  versus: string;
+  date: Date;
+  score: string;
+  team_id: number;
 }

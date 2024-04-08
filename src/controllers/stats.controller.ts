@@ -16,27 +16,27 @@ export class StatsController {
   constructor(private readonly statsService: StatsService) {}
 
   @Post()
-  create(@Body() createStatDto: CreateStatDto) {
-    return this.statsService.createStat(createStatDto);
+  createStat(@Body() data: CreateStatDto) {
+    return this.statsService.createStat(data);
   }
 
   @Get()
-  findAll() {
+  findAllStats() {
     return this.statsService.findAllStats();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOneStat(@Param('id') id: string) {
     return this.statsService.findOneStat(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStatDto: UpdateStatDto) {
-    return this.statsService.updateStat(+id, updateStatDto);
+  updateStat(@Param('id') id: string, @Body() data: UpdateStatDto) {
+    return this.statsService.updateStat(+id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  removeStat(@Param('id') id: string) {
     return this.statsService.removeStat(+id);
   }
 }

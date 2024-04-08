@@ -21,20 +21,18 @@ export class TeamsService {
   }
 
   async findOneTeam(id: number) {
-    const match = this.teamRepository.find({
-      where: {
-          id: id,
-      },
-    });
+    const team = await this.teamRepository.findOneBy({ id });
 
-    if(!(await match).length) {
-      throw new NotFoundException();
+    if (!team) {
+      throw new NotFoundException('Team not found');
     } else {
-      return await match;
+      return await team;
     }
   }
 
   async updateTeam(id: number, updateTeamDto: UpdateTeamDto) {
+    this.findOneTeam(id);
+
     return await this.teamRepository.update(id, updateTeamDto);
   }
 

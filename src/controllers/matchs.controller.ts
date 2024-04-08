@@ -10,33 +10,37 @@ import {
 import { MatchsService } from '../services/matchs.service';
 import { CreateMatchDto } from '../dto/create-match.dto';
 import { UpdateMatchDto } from '../dto/update-match.dto';
+import { Match } from 'src/models/match.entity';
 
 @Controller('matchs')
 export class MatchsController {
   constructor(private readonly matchsService: MatchsService) {}
 
   @Post()
-  create(@Body() createMatchDto: CreateMatchDto) {
-    return this.matchsService.createMatch(createMatchDto);
+  async createMatch(@Body() data: CreateMatchDto) {
+    const match = new Match();
+    Object.assign(match, data);
+    await this.matchsService.createMatch(match, data.team_id);
+    return { message: 'Match successfully created', id: match.id };
   }
 
   @Get()
-  findAll() {
+  findAllMatchs() {
     return this.matchsService.findAllMatchs();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOneMatch(@Param('id') id: string) {
     return this.matchsService.findOneMatch(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMatchDto: UpdateMatchDto) {
-    return this.matchsService.updateMatch(+id, updateMatchDto);
+  updateMatch(@Param('id') id: string, @Body() data: UpdateMatchDto) {
+    return this.matchsService.updateMatch(+id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  removeMatch(@Param('id') id: string) {
     return this.matchsService.removeMatch(+id);
   }
 }

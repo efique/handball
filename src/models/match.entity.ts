@@ -17,7 +17,7 @@ export class Match {
   @Column()
   versus: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime', nullable: true })
   date: Date;
 
   @Column()

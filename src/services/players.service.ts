@@ -11,7 +11,7 @@ export class PlayersService {
     @InjectRepository(Player)
     private playerRepository: Repository<Player>,
   ) {}
-  
+
   async createPlayer(createPlayerDto: CreatePlayerDto) {
     return await this.playerRepository.save(createPlayerDto);
   }
@@ -21,26 +21,24 @@ export class PlayersService {
   }
 
   async findOnePlayer(id: number) {
-    const player = this.playerRepository.find({
-      where: {
-          id: id,
-      },
-    });
+    const player = await this.playerRepository.findOneBy({ id });
 
-    if(!(await player).length) {
-      throw new NotFoundException();
+    if (!player) {
+      throw new NotFoundException('Player not found');
     } else {
       return await player;
     }
   }
 
   async updatePlayer(id: number, updatePlayerDto: UpdatePlayerDto) {
+    this.findOnePlayer(id);
+
     return await this.playerRepository.update(id, updatePlayerDto);
   }
 
   async removePlayer(id: number) {
-      this.findOnePlayer(id);
+    this.findOnePlayer(id);
 
-      return await this.playerRepository.delete(id);
+    return await this.playerRepository.delete(id);
   }
 }

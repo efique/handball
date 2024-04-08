@@ -21,20 +21,18 @@ export class SeasonsService {
   }
 
   async findOneSeason(id: number) {
-    const match = this.seasonRepository.find({
-      where: {
-          id: id,
-      },
-    });
+    const season = await this.seasonRepository.findOneBy({ id });
 
-    if(!(await match).length) {
-      throw new NotFoundException();
+    if (!season) {
+      throw new NotFoundException('Season not found');
     } else {
-      return await match;
+      return await season;
     }
   }
 
   async updateSeason(id: number, updateSeasonDto: UpdateSeasonDto) {
+    this.findOneSeason(id);
+
     return await this.seasonRepository.update(id, updateSeasonDto);
   }
 

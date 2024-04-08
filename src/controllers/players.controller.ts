@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Patch,
+} from '@nestjs/common';
 import { PlayersService } from '../services/players.service';
 import { CreatePlayerDto } from '../dto/create-player.dto';
 import { UpdatePlayerDto } from '../dto/update-player.dto';
@@ -8,27 +17,27 @@ export class PlayersController {
   constructor(private readonly playersService: PlayersService) {}
 
   @Post()
-  create(@Body() createPlayerDto: CreatePlayerDto) {
-    return this.playersService.createPlayer(createPlayerDto);
+  createPlayer(@Body() data: CreatePlayerDto) {
+    return this.playersService.createPlayer(data);
   }
 
   @Get()
-  findAll() {
+  findAllPlayers() {
     return this.playersService.findAllPlayers();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOnePlayer(@Param('id') id: string) {
     return this.playersService.findOnePlayer(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlayerDto: UpdatePlayerDto) {
-    return this.playersService.updatePlayer(+id, updatePlayerDto);
+  updatePlayer(@Param('id') id: string, @Body() data: UpdatePlayerDto) {
+    return this.playersService.updatePlayer(+id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  removePlayer(@Param('id') id: string) {
     return this.playersService.removePlayer(+id);
   }
 }
