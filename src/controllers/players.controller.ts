@@ -16,6 +16,11 @@ import { UpdatePlayerDto } from '../dto/update-player.dto';
 export class PlayersController {
   constructor(private readonly playersService: PlayersService) {}
 
+  @Get('team')
+  findOnePlayerByTeam(@Body() data) {
+    return this.playersService.findOnePlayerByTeam(data);
+  }
+
   @Post()
   createPlayer(@Body() data: CreatePlayerDto) {
     return this.playersService.createPlayer(data);

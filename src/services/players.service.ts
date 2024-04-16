@@ -30,6 +30,23 @@ export class PlayersService {
     }
   }
 
+  async findOnePlayerByTeam(data) {
+    const player = await this.playerRepository.find({
+      where: {
+        id: data.id,
+        playerToTeams: {
+          id: data.team_id,
+        },
+      },
+    });
+
+    if (!player || !player.length) {
+      throw new NotFoundException('Player not found');
+    } else {
+      return await player;
+    }
+  }
+
   async updatePlayer(id: number, updatePlayerDto: UpdatePlayerDto) {
     this.findOnePlayer(id);
 

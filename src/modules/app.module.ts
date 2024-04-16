@@ -16,6 +16,7 @@ import { Team } from 'src/models/team.entity';
 import { Match } from 'src/models/match.entity';
 import { MatchsModule } from './matchs.module';
 import { PlayerToTeam } from 'src/models/playertoteam.entity';
+import { PlayersToTeamsModule } from './playerstoteams.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { PlayerToTeam } from 'src/models/playertoteam.entity';
     StatsModule,
     TeamsModule,
     MatchsModule,
+    PlayersToTeamsModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
