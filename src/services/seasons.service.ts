@@ -12,8 +12,8 @@ export class SeasonsService {
     private seasonRepository: Repository<Season>,
   ) {}
 
-  async createSeason(createSeasonDto: CreateSeasonDto) {
-    return await this.seasonRepository.save(createSeasonDto);
+  async createSeason(data: CreateSeasonDto) {
+    return await this.seasonRepository.save(data);
   }
 
   async findAllSeasons() {
@@ -30,10 +30,10 @@ export class SeasonsService {
     }
   }
 
-  async updateSeason(id: number, updateSeasonDto: UpdateSeasonDto) {
+  async updateSeason(id: number, data: UpdateSeasonDto) {
     this.findOneSeason(id);
 
-    return await this.seasonRepository.update(id, updateSeasonDto);
+    return await this.seasonRepository.update(id, data);
   }
 
   async removeSeason(id: number) {

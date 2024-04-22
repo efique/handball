@@ -14,14 +14,14 @@ export class MatchsService {
     private readonly teamsService: TeamsService,
   ) {}
 
-  async createMatch(match: Match, team_id) {
+  async createMatch(data: Match, team_id) {
     const team = await this.teamsService.findOneTeam(team_id);
 
     if (!team) {
       throw new NotFoundException();
     } else {
-      match.team = team;
-      await this.matchRepository.save(match);
+      data.team = team;
+      await this.matchRepository.save(data);
     }
   }
 
@@ -42,10 +42,10 @@ export class MatchsService {
     }
   }
 
-  async updateMatch(id: number, updateMatchDto: UpdateMatchDto) {
+  async updateMatch(id: number, data: UpdateMatchDto) {
     this.findOneMatch(id);
 
-    return await this.matchRepository.update(id, updateMatchDto);
+    return await this.matchRepository.update(id, data);
   }
 
   async removeMatch(id: number) {

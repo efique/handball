@@ -12,8 +12,8 @@ export class PlayersService {
     private playerRepository: Repository<Player>,
   ) {}
 
-  async createPlayer(createPlayerDto: CreatePlayerDto) {
-    return await this.playerRepository.save(createPlayerDto);
+  async createPlayer(data: CreatePlayerDto) {
+    return await this.playerRepository.save(data);
   }
 
   async findAllPlayers() {
@@ -47,10 +47,10 @@ export class PlayersService {
     }
   }
 
-  async updatePlayer(id: number, updatePlayerDto: UpdatePlayerDto) {
+  async updatePlayer(id: number, data: UpdatePlayerDto) {
     this.findOnePlayer(id);
 
-    return await this.playerRepository.update(id, updatePlayerDto);
+    return await this.playerRepository.update(id, data);
   }
 
   async removePlayer(id: number) {

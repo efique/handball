@@ -12,8 +12,8 @@ export class TeamsService {
     private teamRepository: Repository<Team>,
   ) {}
 
-  async createTeam(createTeamDto: CreateTeamDto) {
-    return await this.teamRepository.save(createTeamDto);
+  async createTeam(data: CreateTeamDto) {
+    return await this.teamRepository.save(data);
   }
 
   async findAllTeams() {
@@ -30,10 +30,10 @@ export class TeamsService {
     }
   }
 
-  async updateTeam(id: number, updateTeamDto: UpdateTeamDto) {
+  async updateTeam(id: number, data: UpdateTeamDto) {
     this.findOneTeam(id);
 
-    return await this.teamRepository.update(id, updateTeamDto);
+    return await this.teamRepository.update(id, data);
   }
 
   async removeTeam(id: number) {

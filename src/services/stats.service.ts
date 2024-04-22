@@ -16,16 +16,14 @@ export class StatsService {
     private readonly matchsService: MatchsService,
   ) {}
 
-  async createStat(createStatDto: CreateStatDto) {
-    const player = await this.playersService.findOnePlayer(
-      createStatDto.player_id,
-    );
-    const match = await this.matchsService.findOneMatch(createStatDto.match_id);
+  async createStat(data: CreateStatDto) {
+    const player = await this.playersService.findOnePlayer(data.player_id);
+    const match = await this.matchsService.findOneMatch(data.match_id);
 
     if (!player || !match) {
       throw new NotFoundException();
     } else {
-      return await this.statRepository.save(createStatDto);
+      return await this.statRepository.save(data);
     }
   }
 
@@ -43,10 +41,10 @@ export class StatsService {
     }
   }
 
-  async updateStat(id: number, updateStatDto: UpdateStatDto) {
+  async updateStat(id: number, data: UpdateStatDto) {
     this.findOneStat(id);
 
-    return await this.statRepository.update(id, updateStatDto);
+    return await this.statRepository.update(id, data);
   }
 
   async removeStat(id: number) {

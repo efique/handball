@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import {
   Entity,
   Column,
@@ -19,6 +20,9 @@ export class User {
 
   @Column()
   username: string;
+
+  @Column()
+  password: string;
 
   @Column({ type: 'enum', enum: RoleAppEnum, default: RoleAppEnum.VIEWER })
   role: RoleAppEnum;

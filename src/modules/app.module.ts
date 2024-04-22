@@ -17,9 +17,15 @@ import { Match } from 'src/models/match.entity';
 import { MatchsModule } from './matchs.module';
 import { PlayerToTeam } from 'src/models/playertoteam.entity';
 import { PlayersToTeamsModule } from './playerstoteams.module';
+import { IsUniqueConstraint } from 'src/validations/isUniqueValidator';
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     PlayersModule,
     UsersModule,
     SeasonsModule,
@@ -27,20 +33,21 @@ import { PlayersToTeamsModule } from './playerstoteams.module';
     TeamsModule,
     MatchsModule,
     PlayersToTeamsModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'handball',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT) || 3306,
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE,
       entities: [Player, User, Season, Stat, Team, Match, PlayerToTeam],
       // autoLoadEntities: true,
       synchronize: false,
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, IsUniqueConstraint],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
