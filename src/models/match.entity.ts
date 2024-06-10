@@ -9,6 +9,12 @@ import {
 import { Stat } from './stat.entity';
 import { Team } from './team.entity';
 
+export enum StatusEnum {
+  NOTSTARTED = 'notstarted',
+  INPROGRESS = 'inprogress',
+  CLOSED = 'closed',
+}
+
 @Entity()
 export class Match {
   @PrimaryGeneratedColumn()
@@ -22,6 +28,16 @@ export class Match {
 
   @Column()
   score: string;
+
+  @Column()
+  isHome: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: StatusEnum,
+    default: StatusEnum.NOTSTARTED,
+  })
+  status: StatusEnum;
 
   @OneToMany(() => Stat, (stat) => stat.match)
   stats: Stat[];
