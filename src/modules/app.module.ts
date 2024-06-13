@@ -20,6 +20,9 @@ import { PlayersToTeamsModule } from './playerstoteams.module';
 import { IsUniqueConstraint } from 'src/validations/isUniqueValidator';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '../auth/auth.module';
+import { JwtStrategy } from '../auth/strategies/jwt.strategy';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtGuard } from '../auth/guards/jwt.guard';
 
 @Module({
   imports: [
@@ -47,7 +50,15 @@ import { AuthModule } from '../auth/auth.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, IsUniqueConstraint],
+  providers: [
+    AppService,
+    IsUniqueConstraint,
+    {
+      provide: APP_GUARD,
+      useClass: JwtGuard,
+    },
+    JwtStrategy,
+  ],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
