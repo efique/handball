@@ -1,9 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from '../controllers/app.controller';
 import { AppService } from '../services/app.service';
 import { PlayersModule } from './players.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 import { Player } from 'src/models/player.entity';
 import { UsersModule } from './users.module';
 import { SeasonsModule } from './seasons.module';
@@ -61,5 +60,5 @@ import { JwtGuard } from '../auth/guards/jwt.guard';
   ],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) {}
+  constructor() {}
 }

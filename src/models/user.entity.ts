@@ -40,3 +40,11 @@ export class User {
   })
   updated_at: Date;
 }
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: any;
+    }
+  }
+}

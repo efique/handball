@@ -8,7 +8,6 @@ import { Request } from 'express';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
     super({
-      // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       jwtFromRequest: ExtractJwt.fromExtractors([
         JwtStrategy.extractJWTFromCookie,
       ]),
@@ -24,13 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return null;
   }
 
-  // async validate(username: string, password: string): Promise<User> {
-  //   const user = await this.authService.validateUser(username, password);
-  //   if (!user) {
-  //     throw new UnauthorizedException();
-  //   }
-  //   return user;
-  // }
   async validate(payload: any) {
     return { userId: payload.sub, username: payload.username };
   }

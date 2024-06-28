@@ -36,22 +36,4 @@ export class AuthService {
     await this.usersService.createUser(newUser);
     return this.login(newUser);
   }
-
-  // async signIn(
-  //   username: string,
-  //   password: string,
-  // ): Promise<{ access_token: string }> {
-  //   const user = await this.usersService.findOneUserByUsername(username);
-
-  //   const isMatch = await bcrypt.compare(password, user?.password);
-
-  //   if (!isMatch) {
-  //     throw new UnauthorizedException();
-  //   }
-
-  //   const payload = { sub: user.id, username: user.username };
-  //   return {
-  //     access_token: await this.jwtService.signAsync(payload),
-  //   };
-  // }
 }
